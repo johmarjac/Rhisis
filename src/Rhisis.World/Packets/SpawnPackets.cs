@@ -206,6 +206,15 @@ namespace Rhisis.World.Packets
 
                 // buffs
                 packet.Write(0); // count
+                
+                player.Connection.Send(packet);
+            }
+                       
+            // Taskbar
+            using (var packet = new FFPacket())
+            {
+                packet.StartNewMergedPacket(player.Id, SnapshotType.TASKBAR);
+                player.Taskbar.Serialize(packet);
 
                 player.Connection.Send(packet);
             }
