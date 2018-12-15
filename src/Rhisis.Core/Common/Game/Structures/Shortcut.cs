@@ -1,7 +1,6 @@
 ﻿using Ether.Network.Packets;
-using Rhisis.Core.Common;
 
-namespace Rhisis.World.Game.Structures
+namespace Rhisis.Core.Common.Game.Structures
 {
     public class Shortcut
     {

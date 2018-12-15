@@ -1,5 +1,4 @@
 ﻿using Ether.Network.Packets;
-using Rhisis.World.Game.Structures;
 using Rhisis.World.Systems.Taskbar;
 
 namespace Rhisis.World.Game.Components
@@ -10,7 +9,7 @@ namespace Rhisis.World.Game.Components
 
         public TaskbarItemContainerComponent Items { get; }
 
-        //public AppletContainerComponent Queue { get; }
+        public TaskbarQueueContainerComponent Queue { get; }
 
         public int ActionPoints { get; set; } = 100;
 
@@ -18,14 +17,14 @@ namespace Rhisis.World.Game.Components
         {
             Applets = new TaskbarAppletContainerComponent(TaskbarSystem.MaxTaskbarApplets);
             Items = new TaskbarItemContainerComponent(TaskbarSystem.MaxTaskbarItems, TaskbarSystem.MaxTaskbarItemLevels);
-            //Queue = new AppletContainerComponent(TaskbarSystem.MaxTaskbarQueue);
+            Queue = new TaskbarQueueContainerComponent(TaskbarSystem.MaxTaskbarQueue);
         }
 
         public void Serialize(INetPacketStream packet)
         {
             Applets.Serialize(packet);
             Items.Serialize(packet);
-            packet.Write(0); // count Queue
+            Queue.Serialize(packet);
             packet.Write(ActionPoints);
         }
     }

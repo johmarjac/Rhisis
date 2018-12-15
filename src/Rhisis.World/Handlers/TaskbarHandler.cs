@@ -13,10 +13,10 @@ namespace Rhisis.World.Handlers
         [PacketHandler(PacketType.ADDAPPLETTASKBAR)]
         public static void OnAddTaskbarApplet(WorldClient client, INetPacketStream packet)
         {
-            var addTaskbarShortcutPacket = new AddTaskbarShortcutPacket(packet);
-            var addTaskbarShortcutEventArgs = new AddTaskbarAppletEventArgs(addTaskbarShortcutPacket.SlotIndex, addTaskbarShortcutPacket.ShortcutType, addTaskbarShortcutPacket.ObjId, addTaskbarShortcutPacket.ObjType, addTaskbarShortcutPacket.ObjIndex, addTaskbarShortcutPacket.UserId, addTaskbarShortcutPacket.ObjData, addTaskbarShortcutPacket.Text);
+            var addTaskbarAppletPacket = new AddTaskbarAppletPacket(packet);
+            var addTaskbarAppletEventArgs = new AddTaskbarAppletEventArgs(addTaskbarAppletPacket.SlotIndex, addTaskbarAppletPacket.ShortcutType, addTaskbarAppletPacket.ObjId, addTaskbarAppletPacket.ObjType, addTaskbarAppletPacket.ObjIndex, addTaskbarAppletPacket.UserId, addTaskbarAppletPacket.ObjData, addTaskbarAppletPacket.Text);
 
-            client.Player.NotifySystem<TaskbarSystem>(addTaskbarShortcutEventArgs);
+            client.Player.NotifySystem<TaskbarSystem>(addTaskbarAppletEventArgs);
         }
 
         [PacketHandler(PacketType.REMOVEAPPLETTASKBAR)]
@@ -44,6 +44,15 @@ namespace Rhisis.World.Handlers
             var removeTaskbarItemEventArgs = new RemoveTaskbarItemEventArgs(removeTaskbarItemPacket.SlotLevelIndex, removeTaskbarItemPacket.SlotIndex);
 
             client.Player.NotifySystem<TaskbarSystem>(removeTaskbarItemEventArgs);
+        }
+
+        [PacketHandler(PacketType.SKILLTASKBAR)]
+        public static void OnTaskbarSkill(WorldClient client, INetPacketStream packet)
+        {
+            var taskbarSkillPacket = new TaskbarSkillPacket(packet);
+            var taskbarSkillEventArgs = new TaskbarSkillEventArgs(taskbarSkillPacket.Skills);
+
+            client.Player.NotifySystem<TaskbarSystem>(taskbarSkillEventArgs);
         }
     }
 }

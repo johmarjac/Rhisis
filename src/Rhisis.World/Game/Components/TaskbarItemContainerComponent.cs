@@ -1,5 +1,6 @@
 ﻿using Ether.Network.Packets;
 using Rhisis.Core.Common;
+using Rhisis.Core.Common.Game.Structures;
 using Rhisis.World.Game.Structures;
 using Rhisis.World.Systems.Taskbar;
 using System.Collections.Generic;

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using Rhisis.Core.Common;
+using Rhisis.Core.Common.Game.Structures;
 using Rhisis.Core.DependencyInjection;
 using Rhisis.World.Game.Core;
 using Rhisis.World.Game.Core.Systems;
 using Rhisis.World.Game.Entities;
-using Rhisis.World.Game.Structures;
 using Rhisis.World.Systems.Taskbar.EventArgs;
 using System;
 
@@ -47,6 +47,9 @@ namespace Rhisis.World.Systems.Taskbar
                 case RemoveTaskbarItemEventArgs e:
                     HandleRemoveTaskbarItem(player, e);
                     break;
+                case TaskbarSkillEventArgs e:
+                    HandleTaskbarSkill(player, e);
+                    break;
             }
         }
 
@@ -72,6 +75,13 @@ namespace Rhisis.World.Systems.Taskbar
         {
             player.Taskbar.Items.RemoveShortcut(e.SlotLevelIndex, e.SlotIndex);
             Logger.LogDebug("Removed Item Shortcut on slot {0}-{1} of player {2}", e.SlotLevelIndex, e.SlotIndex, player.Object.Name);
+        }
+
+        private void HandleTaskbarSkill(IPlayerEntity player, TaskbarSkillEventArgs e)
+        {
+            player.Taskbar.Queue.ClearQueue();
+            player.Taskbar.Queue.CreateShortcuts(e.Skills);
+            Logger.LogDebug("Handled Actionslot Shortcuts of player {0}", player.Object.Name);
         }
     }
 }

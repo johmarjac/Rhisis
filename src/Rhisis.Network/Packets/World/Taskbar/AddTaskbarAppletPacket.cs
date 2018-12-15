@@ -3,7 +3,7 @@ using Rhisis.Core.Common;
 
 namespace Rhisis.Network.Packets.World.Taskbar
 {
-    public class AddTaskbarShortcutPacket
+    public class AddTaskbarAppletPacket
     {
         public int SlotIndex { get; }
 
@@ -21,7 +21,7 @@ namespace Rhisis.Network.Packets.World.Taskbar
 
         public string Text { get; }
 
-        public AddTaskbarShortcutPacket(INetPacketStream packet)
+        public AddTaskbarAppletPacket(INetPacketStream packet)
         {
             SlotIndex = packet.Read<byte>();
             ShortcutType = (ShortcutType)packet.Read<uint>();
