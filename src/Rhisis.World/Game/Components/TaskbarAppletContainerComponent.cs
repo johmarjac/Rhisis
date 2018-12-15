@@ -46,20 +46,14 @@ namespace Rhisis.World.Game.Components
             Shortcuts[slotIndex] = null;
         }
 
-        public int Count
-        {
-            get
-            {
-                return Shortcuts.Count(x => x != null && x.ShortcutType != ShortcutType.None);
-            }
-        }
+        public int Count => this.Shortcuts.Count(x => x != null && x.Type != ShortcutType.None);
 
         public void Serialize(INetPacketStream packet)
         {
             packet.Write(Count);
             for(int i = 0; i < MaxCapacity; i++)
             {
-                if(Shortcuts[i] != null && Shortcuts[i].ShortcutType != ShortcutType.None)
+                if(Shortcuts[i] != null && Shortcuts[i].Type != ShortcutType.None)
                 {
                     Shortcuts[i].Serialize(packet);
                 }

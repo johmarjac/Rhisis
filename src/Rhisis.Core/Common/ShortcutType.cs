@@ -11,12 +11,12 @@
         Skill,
         Object,
         Chat,
-        Skillfun,
+        SkillFun,
         Emoticon,
-        Lordskill
+        LordSkill
     }
 
-    public enum ShortcutObjType : uint
+    public enum ShortcutObjectType : uint
     {
         Item,
         Card,

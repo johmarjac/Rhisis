@@ -48,13 +48,7 @@ namespace Rhisis.World.Game.Components
             Shortcuts[slotLevelIndex][slotIndex] = null;
         }
 
-        public int Count
-        {
-            get
-            {
-                return Shortcuts.Sum(x => x.Count(y => y != null && y.ShortcutType != ShortcutType.None));
-            }
-        }
+        public int Count => Shortcuts.Sum(x => x.Count(y => y != null && y.Type != ShortcutType.None));
 
         public void Serialize(INetPacketStream packet)
         {
@@ -63,7 +57,7 @@ namespace Rhisis.World.Game.Components
             {
                 for(int slot = 0; slot < TaskbarSystem.MaxTaskbarItems; slot++)
                 {
-                    if(Shortcuts[level][slot] != null && Shortcuts[level][slot].ShortcutType != ShortcutType.None)
+                    if(Shortcuts[level][slot] != null && Shortcuts[level][slot].Type != ShortcutType.None)
                     {
                         packet.Write(level);
                         Shortcuts[level][slot].Serialize(packet);

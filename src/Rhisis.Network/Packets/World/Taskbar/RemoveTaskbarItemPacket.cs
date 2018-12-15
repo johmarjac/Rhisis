@@ -1,8 +1,9 @@
 ﻿using Ether.Network.Packets;
+using System;
 
 namespace Rhisis.Network.Packets.World.Taskbar
 {
-    public class RemoveTaskbarItemPacket
+    public struct RemoveTaskbarItemPacket : IEquatable<RemoveTaskbarItemPacket>
     {
         public int SlotLevelIndex { get; }
 
@@ -12,6 +13,11 @@ namespace Rhisis.Network.Packets.World.Taskbar
         {
             SlotLevelIndex = packet.Read<byte>();
             SlotIndex = packet.Read<byte>();
+        }
+
+        public bool Equals(RemoveTaskbarItemPacket other)
+        {
+            return SlotLevelIndex == other.SlotLevelIndex && SlotIndex == other.SlotIndex;
         }
     }
 }

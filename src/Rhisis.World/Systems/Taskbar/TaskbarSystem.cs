@@ -55,7 +55,7 @@ namespace Rhisis.World.Systems.Taskbar
 
         private void HandleAddTaskbarApplet(IPlayerEntity player, AddTaskbarAppletEventArgs e)
         {
-            player.Taskbar.Applets.CreateShortcut(new Shortcut(e.SlotIndex, e.Type, e.ObjId, e.ObjType, e.ObjIndex, e.UserId, e.ObjData, e.Text));
+            player.Taskbar.Applets.CreateShortcut(new Shortcut(e.SlotIndex, e.Type, e.ObjId, e.ObjectType, e.ObjIndex, e.UserId, e.ObjData, e.Text));
             Logger.LogDebug("Created Applet Shortcut of type {0} on slot {1} for player {2}", Enum.GetName(typeof(ShortcutType), e.Type), e.SlotIndex, player.Object.Name);
         }
 
@@ -67,7 +67,7 @@ namespace Rhisis.World.Systems.Taskbar
 
         private void HandleAddTaskbarItem(IPlayerEntity player, AddTaskbarItemEventArgs e)
         {
-            player.Taskbar.Items.CreateShortcut(new Shortcut(e.SlotIndex, e.Type, e.ObjId, e.ObjType, e.ObjIndex, e.UserId, e.ObjData, e.Text), e.SlotLevelIndex);
+            player.Taskbar.Items.CreateShortcut(new Shortcut(e.SlotIndex, e.Type, e.ObjId, e.ObjectType, e.ObjIndex, e.UserId, e.ObjData, e.Text), e.SlotLevelIndex);
             Logger.LogDebug("Created Item Shortcut of type {0} on slot {1} for player {2}", Enum.GetName(typeof(ShortcutType), e.Type), e.SlotIndex, player.Object.Name);
         }
 

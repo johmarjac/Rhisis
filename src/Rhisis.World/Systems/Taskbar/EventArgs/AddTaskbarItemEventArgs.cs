@@ -13,7 +13,7 @@ namespace Rhisis.World.Systems.Taskbar.EventArgs
 
         public uint ObjId { get; }
 
-        public ShortcutObjType ObjType { get; }
+        public ShortcutObjectType ObjectType { get; }
 
         public uint ObjIndex { get; }
 
@@ -23,13 +23,13 @@ namespace Rhisis.World.Systems.Taskbar.EventArgs
 
         public string Text { get; }
 
-        public AddTaskbarItemEventArgs(int slotLevelIndex, int slotIndex, ShortcutType type, uint objId, ShortcutObjType objType, uint objIndex, uint userId, uint objData, string text)
+        public AddTaskbarItemEventArgs(int slotLevelIndex, int slotIndex, ShortcutType type, uint objId, ShortcutObjectType objectType, uint objIndex, uint userId, uint objData, string text)
         {
             SlotLevelIndex = slotLevelIndex;
             SlotIndex = slotIndex;
             Type = type;
             ObjId = objId;
-            ObjType = objType;
+            ObjectType = objectType;
             ObjIndex = objIndex;
             UserId = userId;
             ObjData = objData;

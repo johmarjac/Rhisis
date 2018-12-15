@@ -1,11 +1,12 @@
 ﻿using Ether.Network.Packets;
 using Rhisis.Core.Common;
 using Rhisis.Core.Common.Game.Structures;
+using System;
 using System.Collections.Generic;
 
 namespace Rhisis.Network.Packets.World.Taskbar
 {
-    public class TaskbarSkillPacket
+    public struct TaskbarSkillPacket : IEquatable<TaskbarSkillPacket>
     {
         public List<Shortcut> Skills { get; }
 
@@ -21,7 +22,7 @@ namespace Rhisis.Network.Packets.World.Taskbar
 
                 var type = (ShortcutType)packet.Read<uint>();
                 var objId = packet.Read<uint>();
-                var objType = (ShortcutObjType)packet.Read<uint>();
+                var objType = (ShortcutObjectType)packet.Read<uint>();
                 var objIndex = packet.Read<uint>();
                 var userId = packet.Read<uint>();
                 var objData = packet.Read<uint>();
@@ -32,6 +33,11 @@ namespace Rhisis.Network.Packets.World.Taskbar
 
                 Skills[i] = new Shortcut(index, type, objId, objType, objIndex, userId, objData, text);
             }
+        }
+
+        public bool Equals(TaskbarSkillPacket other)
+        {
+            throw new NotImplementedException();
         }
     }
 }

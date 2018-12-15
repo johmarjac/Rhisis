@@ -1,15 +1,21 @@
 ﻿using Rhisis.Network;
 using Rhisis.Network.Packets;
 using Rhisis.World.Game.Entities;
+using System;
 
 namespace Rhisis.World.Game.Chat
 {
     public class TestCommand
     {
-        struct SKILL
+        struct SKILL : IEquatable<SKILL>
         {
             public uint dwSkill;
             public uint dwLevel;
+
+            public bool Equals(SKILL other)
+            {
+                return dwSkill == other.dwSkill && dwLevel == other.dwLevel;
+            }
         }
 
         [ChatCommand(".test", Rhisis.Core.Common.AuthorityType.Administrator)]

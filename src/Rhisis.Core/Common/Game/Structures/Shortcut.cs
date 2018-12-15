@@ -6,11 +6,11 @@ namespace Rhisis.Core.Common.Game.Structures
     {
         public int SlotIndex { get; }
 
-        public ShortcutType ShortcutType { get; }
+        public ShortcutType Type { get; }
 
         public uint ObjId { get; }
 
-        public ShortcutObjType ObjType { get; }
+        public ShortcutObjectType ObjectType { get; }
 
         public uint ObjIndex { get; }
 
@@ -20,12 +20,12 @@ namespace Rhisis.Core.Common.Game.Structures
 
         public string Text { get; }
 
-        public Shortcut(int slotIndex, ShortcutType shortcutType, uint objId, ShortcutObjType shortcutObjType, uint objIndex, uint userId, uint objData, string text)
+        public Shortcut(int slotIndex, ShortcutType type, uint objId, ShortcutObjectType shortcutObjectType, uint objIndex, uint userId, uint objData, string text)
         {
             SlotIndex = slotIndex;
-            ShortcutType = shortcutType;
+            Type = type;
             ObjId = objId;
-            ObjType = shortcutObjType;
+            ObjectType = shortcutObjectType;
             ObjIndex = objIndex;
             UserId = userId;
             ObjData = objData;
@@ -35,14 +35,14 @@ namespace Rhisis.Core.Common.Game.Structures
         public void Serialize(INetPacketStream packet)
         {
             packet.Write(SlotIndex);
-            packet.Write((uint)ShortcutType);
+            packet.Write((uint)Type);
             packet.Write(ObjId);
-            packet.Write((uint)ObjType);
+            packet.Write((uint)ObjectType);
             packet.Write(ObjIndex);
             packet.Write(UserId);
             packet.Write(ObjData);
 
-            if (ShortcutType == ShortcutType.Chat)
+            if (Type == ShortcutType.Chat)
                 packet.Write(Text);
         }
     }

@@ -14,7 +14,7 @@ namespace Rhisis.World.Handlers
         public static void OnAddTaskbarApplet(WorldClient client, INetPacketStream packet)
         {
             var addTaskbarAppletPacket = new AddTaskbarAppletPacket(packet);
-            var addTaskbarAppletEventArgs = new AddTaskbarAppletEventArgs(addTaskbarAppletPacket.SlotIndex, addTaskbarAppletPacket.ShortcutType, addTaskbarAppletPacket.ObjId, addTaskbarAppletPacket.ObjType, addTaskbarAppletPacket.ObjIndex, addTaskbarAppletPacket.UserId, addTaskbarAppletPacket.ObjData, addTaskbarAppletPacket.Text);
+            var addTaskbarAppletEventArgs = new AddTaskbarAppletEventArgs(addTaskbarAppletPacket.SlotIndex, addTaskbarAppletPacket.Type, addTaskbarAppletPacket.ObjectId, addTaskbarAppletPacket.ObjectType, addTaskbarAppletPacket.ObjectIndex, addTaskbarAppletPacket.UserId, addTaskbarAppletPacket.ObjectData, addTaskbarAppletPacket.Text);
 
             client.Player.NotifySystem<TaskbarSystem>(addTaskbarAppletEventArgs);
         }
@@ -32,7 +32,7 @@ namespace Rhisis.World.Handlers
         public static void OnAddTaskbarItem(WorldClient client, INetPacketStream packet)
         {
             var addTaskbarItemPacket = new AddTaskbarItemPacket(packet);
-            var addTaskbarItemEventArgs = new AddTaskbarItemEventArgs(addTaskbarItemPacket.SlotLevelIndex, addTaskbarItemPacket.SlotIndex, addTaskbarItemPacket.ShortcutType, addTaskbarItemPacket.ObjId, addTaskbarItemPacket.ObjType, addTaskbarItemPacket.ObjIndex, addTaskbarItemPacket.UserId, addTaskbarItemPacket.ObjData, addTaskbarItemPacket.Text);
+            var addTaskbarItemEventArgs = new AddTaskbarItemEventArgs(addTaskbarItemPacket.SlotLevelIndex, addTaskbarItemPacket.SlotIndex, addTaskbarItemPacket.Type, addTaskbarItemPacket.ObjectId, addTaskbarItemPacket.ObjectType, addTaskbarItemPacket.ObjectIndex, addTaskbarItemPacket.UserId, addTaskbarItemPacket.ObjectData, addTaskbarItemPacket.Text);
                        
             client.Player.NotifySystem<TaskbarSystem>(addTaskbarItemEventArgs);
         }
