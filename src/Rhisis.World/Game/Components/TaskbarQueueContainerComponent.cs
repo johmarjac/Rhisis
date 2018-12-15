@@ -21,7 +21,8 @@ namespace Rhisis.World.Game.Components
 
         public void ClearQueue()
         {
-            Shortcuts.ForEach(x => x = null);
+            for (int i = 0; i < Shortcuts.Count; i++)
+                Shortcuts[i] = null;
         }
 
         public void CreateShortcuts(List<Shortcut> shortcuts)
