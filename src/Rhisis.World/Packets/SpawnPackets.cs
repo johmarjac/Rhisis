@@ -1,6 +1,7 @@
 ﻿using Rhisis.Core.Resources;
 using Rhisis.Network;
 using Rhisis.Network.Packets;
+using Rhisis.World.Game.Chat;
 using Rhisis.World.Game.Core;
 using Rhisis.World.Game.Entities;
 using Rhisis.World.Game.Structures;
@@ -209,6 +210,9 @@ namespace Rhisis.World.Packets
                 
                 player.Connection.Send(packet);
             }
+
+            // test only
+            TestCommand.OnTest(player, new string[] { });
                        
             // Taskbar
             using (var packet = new FFPacket())

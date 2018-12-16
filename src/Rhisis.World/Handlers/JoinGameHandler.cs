@@ -1,6 +1,7 @@
 ﻿using Ether.Network.Packets;
 using NLog;
 using Rhisis.Core.Common;
+using Rhisis.Core.Common.Game.Structures;
 using Rhisis.Core.DependencyInjection;
 using Rhisis.Core.IO;
 using Rhisis.Core.Resources;
@@ -17,6 +18,7 @@ using Rhisis.World.Game.Maps;
 using Rhisis.World.Packets;
 using Rhisis.World.Systems.Inventory;
 using Rhisis.World.Systems.Inventory.EventArgs;
+using System.Linq;
 
 namespace Rhisis.World.Handlers
 {
@@ -110,6 +112,16 @@ namespace Rhisis.World.Handlers
             };
 
             client.Player.Statistics = new StatisticsComponent(character);
+
+            // Taskbar
+            foreach (var applet in character.TaskbarShortcuts.Where(x => x.TargetTaskbar == ShortcutTaskbarTarget.Applet))
+                client.Player.Taskbar.Applets.CreateShortcut(new Shortcut(applet.SlotIndex, applet.Type, applet.ObjectId, applet.ObjectType, applet.ObjectIndex, applet.UserId, applet.ObjectData, applet.Text));
+
+            foreach (var item in character.TaskbarShortcuts.Where(x => x.TargetTaskbar == ShortcutTaskbarTarget.Item))
+                client.Player.Taskbar.Items.CreateShortcut(new Shortcut(item.SlotIndex, item.Type, item.ObjectId, item.ObjectType, item.ObjectIndex, item.UserId, item.ObjectData, item.Text), item.SlotLevelIndex.HasValue ? item.SlotLevelIndex.Value : -1);
+
+            foreach (var queueItem in character.TaskbarShortcuts.Where(x => x.TargetTaskbar == ShortcutTaskbarTarget.Queue))
+                client.Player.Taskbar.Applets.CreateShortcut(new Shortcut(queueItem.SlotIndex, queueItem.Type, queueItem.ObjectId, queueItem.ObjectType, queueItem.ObjectIndex, queueItem.UserId, queueItem.ObjectData, queueItem.Text));
 
             var behaviors = DependencyContainer.Instance.Resolve<BehaviorLoader>();
             client.Player.Behavior = behaviors.PlayerBehaviors.DefaultBehavior;

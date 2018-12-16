@@ -23,4 +23,11 @@
         Cube,
         Pet
     }
+
+    public enum ShortcutTaskbarTarget
+    {
+        Applet,
+        Item,
+        Queue
+    }
 }
