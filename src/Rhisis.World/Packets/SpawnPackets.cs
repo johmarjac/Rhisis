@@ -210,10 +210,7 @@ namespace Rhisis.World.Packets
                 
                 player.Connection.Send(packet);
             }
-
-            // test only
-            TestCommand.OnTest(player, new string[] { });
-                       
+                                   
             // Taskbar
             using (var packet = new FFPacket())
             {
