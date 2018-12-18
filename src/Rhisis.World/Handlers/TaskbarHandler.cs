@@ -1,5 +1,4 @@
 ﻿using Ether.Network.Packets;
-using Rhisis.Core.Common;
 using Rhisis.Network;
 using Rhisis.Network.Packets;
 using Rhisis.Network.Packets.World.Taskbar;
@@ -15,7 +14,7 @@ namespace Rhisis.World.Handlers
         {
             var addTaskbarAppletPacket = new AddTaskbarAppletPacket(packet);
             var addTaskbarAppletEventArgs = new AddTaskbarAppletEventArgs(addTaskbarAppletPacket.SlotIndex, addTaskbarAppletPacket.Type, addTaskbarAppletPacket.ObjectId, addTaskbarAppletPacket.ObjectType, addTaskbarAppletPacket.ObjectIndex, addTaskbarAppletPacket.UserId, addTaskbarAppletPacket.ObjectData, addTaskbarAppletPacket.Text);
-
+            
             client.Player.NotifySystem<TaskbarSystem>(addTaskbarAppletEventArgs);
         }
 

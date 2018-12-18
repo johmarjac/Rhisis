@@ -1,4 +1,5 @@
 ﻿using Ether.Network.Packets;
+using Rhisis.World.Game.Entities;
 using Rhisis.World.Systems.Taskbar;
 
 namespace Rhisis.World.Game.Components

@@ -36,48 +36,48 @@ namespace Rhisis.World.Systems.Taskbar
             switch (args)
             {
                 case AddTaskbarAppletEventArgs e:
-                    HandleAddTaskbarApplet(player, e);
+                    HandleAddAppletTaskbarShortcut(player, e);
                     break;
                 case RemoveTaskbarAppletEventArgs e:
-                    HandleRemoveTaskbarApplet(player, e);
+                    HandleRemoveAppletTaskbarShortcut(player, e);
                     break;
                 case AddTaskbarItemEventArgs e:
-                    HandleAddTaskbarItem(player, e);
+                    HandleAddItemTaskbarShortcut(player, e);
                     break;
                 case RemoveTaskbarItemEventArgs e:
-                    HandleRemoveTaskbarItem(player, e);
+                    HandleRemoveItemTaskbarShortcut(player, e);
                     break;
                 case TaskbarSkillEventArgs e:
-                    HandleTaskbarSkill(player, e);
+                    HandleActionSlot(player, e);
                     break;
             }
         }
 
-        private void HandleAddTaskbarApplet(IPlayerEntity player, AddTaskbarAppletEventArgs e)
+        private void HandleAddAppletTaskbarShortcut(IPlayerEntity player, AddTaskbarAppletEventArgs e)
         {
             player.Taskbar.Applets.CreateShortcut(new Shortcut(e.SlotIndex, e.Type, e.ObjId, e.ObjectType, e.ObjIndex, e.UserId, e.ObjData, e.Text));
-            Logger.LogDebug("Created Applet Shortcut of type {0} on slot {1} for player {2}", Enum.GetName(typeof(ShortcutType), e.Type), e.SlotIndex, player.Object.Name);
+            Logger.LogDebug("Created Shortcut of type {0} on slot {1} for player {2} on the Applet Taskbar", Enum.GetName(typeof(ShortcutType), e.Type), e.SlotIndex, player.Object.Name);
         }
 
-        private void HandleRemoveTaskbarApplet(IPlayerEntity player, RemoveTaskbarAppletEventArgs e)
+        private void HandleRemoveAppletTaskbarShortcut(IPlayerEntity player, RemoveTaskbarAppletEventArgs e)
         {
             player.Taskbar.Applets.RemoveShortcut(e.SlotIndex);
-            Logger.LogDebug("Removed Applet Shortcut on slot {0} of player {1}", e.SlotIndex, player.Object.Name);
+            Logger.LogDebug("Removed Shortcut on slot {0} of player {1} on the Applet Taskbar", e.SlotIndex, player.Object.Name);
         }
 
-        private void HandleAddTaskbarItem(IPlayerEntity player, AddTaskbarItemEventArgs e)
+        private void HandleAddItemTaskbarShortcut(IPlayerEntity player, AddTaskbarItemEventArgs e)
         {
             player.Taskbar.Items.CreateShortcut(new Shortcut(e.SlotIndex, e.Type, e.ObjId, e.ObjectType, e.ObjIndex, e.UserId, e.ObjData, e.Text), e.SlotLevelIndex);
-            Logger.LogDebug("Created Item Shortcut of type {0} on slot {1} for player {2}", Enum.GetName(typeof(ShortcutType), e.Type), e.SlotIndex, player.Object.Name);
+            Logger.LogDebug("Created Shortcut of type {0} on slot {1} for player {2} on the Item Taskbar", Enum.GetName(typeof(ShortcutType), e.Type), e.SlotIndex, player.Object.Name);
         }
 
-        private void HandleRemoveTaskbarItem(IPlayerEntity player, RemoveTaskbarItemEventArgs e)
+        private void HandleRemoveItemTaskbarShortcut(IPlayerEntity player, RemoveTaskbarItemEventArgs e)
         {
             player.Taskbar.Items.RemoveShortcut(e.SlotLevelIndex, e.SlotIndex);
-            Logger.LogDebug("Removed Item Shortcut on slot {0}-{1} of player {2}", e.SlotLevelIndex, e.SlotIndex, player.Object.Name);
+            Logger.LogDebug("Removed Shortcut on slot {0}-{1} of player {2} on the Item Taskbar", e.SlotLevelIndex, e.SlotIndex, player.Object.Name);
         }
 
-        private void HandleTaskbarSkill(IPlayerEntity player, TaskbarSkillEventArgs e)
+        private void HandleActionSlot(IPlayerEntity player, TaskbarSkillEventArgs e)
         {
             player.Taskbar.Queue.ClearQueue();
             player.Taskbar.Queue.CreateShortcuts(e.Skills);
