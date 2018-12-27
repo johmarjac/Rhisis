@@ -11,6 +11,7 @@ using Rhisis.Database.Entities;
 using Rhisis.Network;
 using Rhisis.Network.Packets;
 using Rhisis.Network.Packets.World;
+using Rhisis.World.Game.Chat;
 using Rhisis.World.Game.Components;
 using Rhisis.World.Game.Entities;
 using Rhisis.World.Game.Loaders;
@@ -148,12 +149,14 @@ namespace Rhisis.World.Handlers
                     client.Player.Taskbar.Items.CreateShortcut(new Shortcut(item.SlotIndex, item.Type, item.ObjectId, item.ObjectType, item.ObjectIndex, item.UserId, item.ObjectData, item.Text), item.SlotLevelIndex.HasValue ? item.SlotLevelIndex.Value : -1);
             }
 
-            //var list = new List<Shortcut>();
-            //foreach(var skill in character.TaskbarShortcuts.Where(x => x.TargetTaskbar == ShortcutTaskbarTarget.Queue))
-            //{
-            //    list.Add(new Shortcut(skill.SlotIndex, skill.Type, skill.ObjectId, skill.ObjectType, skill.ObjectIndex, skill.UserId, skill.ObjectData, skill.Text));
-            //}
-            //client.Player.Taskbar.Queue.CreateShortcuts(list);
+            TestCommand.OnTest(client.Player, new string[] { });
+
+            var list = new List<Shortcut>();
+            foreach (var skill in character.TaskbarShortcuts.Where(x => x.TargetTaskbar == ShortcutTaskbarTarget.Queue))
+            {
+                list.Add(new Shortcut(skill.SlotIndex, skill.Type, skill.ObjectId, skill.ObjectType, skill.ObjectIndex, skill.UserId, skill.ObjectData, skill.Text));
+            }
+            client.Player.Taskbar.Queue.CreateShortcuts(list);
 
             // 3rd: spawn the player
             WorldPacketFactory.SendPlayerSpawn(client.Player);

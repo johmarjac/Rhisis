@@ -233,13 +233,13 @@ namespace Rhisis.World
                         }
                     }
 
-                    //foreach (var queueItem in Player.Taskbar.Queue.Shortcuts)
-                    //{
-                    //    if (queueItem == null)
-                    //        continue;
+                    foreach (var queueItem in Player.Taskbar.Queue.Shortcuts)
+                    {
+                        if (queueItem == null)
+                            continue;
 
-                    //    character.TaskbarShortcuts.Add(new DbShortcut(ShortcutTaskbarTarget.Queue, queueItem.SlotIndex, queueItem.Type, queueItem.ObjId, queueItem.ObjectType, queueItem.ObjIndex, queueItem.UserId, queueItem.ObjData, queueItem.Text));
-                    //}
+                        character.TaskbarShortcuts.Add(new DbShortcut(ShortcutTaskbarTarget.Queue, queueItem.SlotIndex, queueItem.Type, queueItem.ObjId, queueItem.ObjectType, queueItem.ObjIndex, queueItem.UserId, queueItem.ObjData, queueItem.Text));
+                    }
                 }
 
                 database.Complete();
