@@ -61,6 +61,12 @@ namespace Rhisis.Core.Structures.Configuration
         public WorldDrops Drops { get; set; } = new WorldDrops();
 
         /// <summary>
+        /// Gets or sets the Npc Buffs settings.
+        /// </summary>
+        [DataMember(Name = "npcBuffs")]
+        public NpcBuffs NpcBuffs { get; set; } = new NpcBuffs();
+
+        /// <summary>
         /// Gets or sets the IPC configuration.
         /// </summary>
         [DataMember(Name = "isc")]
