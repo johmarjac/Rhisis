@@ -62,6 +62,9 @@ namespace Rhisis.World.Systems.Party
             if (party == null)
                 return;
 
+            if (e.LeaderId != e.MemberId && party.PartyLeaderId != e.LeaderId)
+                return;
+
             if(party.RemoveMember(member))
             {
                 if (party.PartyMemberContainer.MemberCount < 2)
