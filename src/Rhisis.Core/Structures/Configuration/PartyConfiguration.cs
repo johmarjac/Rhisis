@@ -5,7 +5,7 @@ namespace Rhisis.Core.Structures.Configuration
     [DataContract]
     public class PartyConfiguration
     {
-        public const int DefaultMaxPartyMemberCount = 15;
+        public const int DefaultMaxPartyMemberCount = 8;
 
         /// <summary>
         /// Gets or sets the maximum amount of members in a party.
