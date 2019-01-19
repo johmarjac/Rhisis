@@ -60,7 +60,18 @@ namespace Rhisis.World.Game.Structures
         /// Gets a value indicating whether the party is full or not.
         /// </summary>
         public bool IsFull => PartyMemberContainer.MemberCount == PartyMemberContainer.MaxPartyMembers;
-               
+
+        /// <summary>
+        /// Gets or sets the Party Leader Id.
+        /// </summary>
+        public int PartyLeaderId { get; set; }
+
+        /// <summary>
+        /// Gets the party leader.
+        /// </summary>
+        /// <returns></returns>
+        public IPlayerEntity PartyLeader => PartyMemberContainer.FirstOrDefault(x => x.PlayerData.Id == PartyLeaderId);
+
         /// <summary>
         /// Creates a new <see cref="Party"/> instance.
         /// </summary>
@@ -76,17 +87,6 @@ namespace Rhisis.World.Game.Structures
             Points = 0;
             PartyMemberContainer = new PartyMemberContainerComponent(worldConfiguration.PartyConfiguration.MaxPartyMemberCount);
         }
-
-        /// <summary>
-        /// Gets the party leader.
-        /// </summary>
-        /// <returns></returns>
-        public IPlayerEntity PartyLeader => PartyMemberContainer.FirstOrDefault(x => x.PlayerData.Id == PartyLeaderId);
-
-        /// <summary>
-        /// Gets or sets the Party Leader Id.
-        /// </summary>
-        public int PartyLeaderId { get; set; }
         
         /// <summary>
         /// Tries to add the specified player to the party.
