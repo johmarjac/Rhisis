@@ -29,11 +29,11 @@ namespace Rhisis.World.Systems.Party
         /// <summary>
         /// Creates a new party.
         /// </summary>
-        public bool CreateParty(out Group party)
+        public Group CreateParty()
         {
-            party = new Group(Parties.Count + 1);
+            Group party = new Group(Parties.Count + 1);
             Parties.Add(party);
-            return true;
+            return party;
         }
 
         /// <summary>

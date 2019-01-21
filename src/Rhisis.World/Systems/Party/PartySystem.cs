@@ -95,7 +95,10 @@ namespace Rhisis.World.Systems.Party
                 return;
 
             if (member.Party.IsInParty)
+            {
+                Logger.LogWarning($"Player {member.Object.Name} is already in a party.");
                 return;
+            }
 
             if(leader.Party.IsInParty)
             {
@@ -114,14 +117,12 @@ namespace Rhisis.World.Systems.Party
             else
             {
                 // Create Party with leader and member
-                if(partyManager.CreateParty(out var party))
-                {
-                    party.AddMember(leader, true);
-                    party.AddMember(member);
+                var party = partyManager.CreateParty();
+                party.AddMember(leader, true);
+                party.AddMember(member);
 
-                    foreach (var partyMember in party.PartyMemberContainer)
-                        WorldPacketFactory.SendAddPartyMember(partyMember, party, member.PlayerData.Id, leader.Object.Name, member.Object.Name);
-                }
+                foreach (var partyMember in party.PartyMemberContainer)
+                    WorldPacketFactory.SendAddPartyMember(partyMember, party, member.PlayerData.Id, leader.Object.Name, member.Object.Name);
             }
         }
 
