@@ -67,7 +67,7 @@ namespace Rhisis.World.Systems.Party
 
             if(party.RemoveMember(member))
             {
-                if (party.PartyMemberContainer.MemberCount < 2)
+                if (party.Members.Count < 2)
                 {
                     WorldPacketFactory.SendAddPartyMember(party.PartyLeader, null, 0, party.PartyLeader.Object.Name, member.Object.Name);
                     party.PartyLeader.Party.Party = null;
@@ -75,7 +75,7 @@ namespace Rhisis.World.Systems.Party
                 }
                 else
                 {
-                    foreach (var partyMember in party.PartyMemberContainer)
+                    foreach (var partyMember in party.Members)
                         WorldPacketFactory.SendAddPartyMember(partyMember, party, member.PlayerData.Id, party.PartyLeader.Object.Name, member.Object.Name);
                 }
 
@@ -111,7 +111,7 @@ namespace Rhisis.World.Systems.Party
 
                 leader.Party.Party.AddMember(member);
 
-                foreach (var partyMember in leader.Party.Party.PartyMemberContainer)
+                foreach (var partyMember in leader.Party.Party.Members)
                     WorldPacketFactory.SendAddPartyMember(partyMember, leader.Party.Party, member.PlayerData.Id, leader.Object.Name, member.Object.Name);
             }
             else
@@ -121,7 +121,7 @@ namespace Rhisis.World.Systems.Party
                 party.AddMember(leader, true);
                 party.AddMember(member);
 
-                foreach (var partyMember in party.PartyMemberContainer)
+                foreach (var partyMember in party.Members)
                     WorldPacketFactory.SendAddPartyMember(partyMember, party, member.PlayerData.Id, leader.Object.Name, member.Object.Name);
             }
         }

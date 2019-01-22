@@ -5,6 +5,7 @@ using Rhisis.World.Game.Common;
 using Rhisis.World.Game.Components;
 using Rhisis.World.Game.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rhisis.World.Game.Structures
@@ -54,12 +55,12 @@ namespace Rhisis.World.Game.Structures
         /// <summary>
         /// Gets the Party Members.
         /// </summary>
-        public PartyMemberContainerComponent PartyMemberContainer { get; }
+        public List<IPlayerEntity> Members { get; }
 
         /// <summary>
         /// Gets a value indicating whether the party is full or not.
         /// </summary>
-        public bool IsFull => PartyMemberContainer.MemberCount == PartyMemberContainer.MaxPartyMembers;
+        public bool IsFull => Members.Count == Members.Capacity;
 
         /// <summary>
         /// Gets or sets the Party Leader Id.
@@ -70,7 +71,7 @@ namespace Rhisis.World.Game.Structures
         /// Gets the party leader.
         /// </summary>
         /// <returns></returns>
-        public IPlayerEntity PartyLeader => PartyMemberContainer.FirstOrDefault(x => x.PlayerData.Id == PartyLeaderId);
+        public IPlayerEntity PartyLeader => Members.FirstOrDefault(x => x.PlayerData.Id == PartyLeaderId);
 
         /// <summary>
         /// Creates a new <see cref="Party"/> instance.
@@ -85,7 +86,7 @@ namespace Rhisis.World.Game.Structures
             Level = 1;
             Experience = 0;
             Points = 0;
-            PartyMemberContainer = new PartyMemberContainerComponent(worldConfiguration.PartyConfiguration.MaxPartyMemberCount);
+            Members = new List<IPlayerEntity>(worldConfiguration.PartyConfiguration.MaxPartyMemberCount);
         }
         
         /// <summary>
@@ -98,16 +99,19 @@ namespace Rhisis.World.Game.Structures
             if (player.Party.IsInParty)
                 return false;
 
-            if(PartyMemberContainer.AddMember(player))
-            {
-                if (isPartyLeader)
-                    PartyLeaderId = player.PlayerData.Id;
+            if (Members.Contains(player))
+                return false;
 
-                player.Party.Party = this;
-                return true;
-            }
+            if (Members.Count == Members.Capacity)
+                return false;
 
-            return false;
+            Members.Add(player);
+            if (isPartyLeader)
+                PartyLeaderId = player.PlayerData.Id;
+
+            player.Party.Party = this;
+
+            return true;
         }
 
         /// <summary>
@@ -122,11 +126,12 @@ namespace Rhisis.World.Game.Structures
 
             if (member.Party.Party == this)
             {
-                if(PartyMemberContainer.RemoveMember(member))
+                if(Members.Remove(member))
                 {
+                    member.Party.Party = null;
                     if(member.PlayerData.Id == PartyLeaderId)
                     {
-                        PartyLeaderId = PartyMemberContainer.FirstOrDefault().PlayerData.Id;
+                        PartyLeaderId = Members.FirstOrDefault().PlayerData.Id;
                     }
                     return true;
                 }
@@ -141,11 +146,11 @@ namespace Rhisis.World.Game.Structures
         /// <param name="packet"></param>
         public void Serialize(INetPacketStream packet)
         {
-            packet.Write(PartyMemberContainer.MemberCount);
+            packet.Write(Members.Count);
 
             packet.Write(Id);
             packet.Write(Convert.ToInt32(IsAdvanced));
-            packet.Write(PartyMemberContainer.MemberCount);
+            packet.Write(Members.Count);
             packet.Write(Level);
             packet.Write(Experience);
             packet.Write(Points);
@@ -159,12 +164,8 @@ namespace Rhisis.World.Game.Structures
             if (IsAdvanced)
                 packet.Write(Name);
 
-            for(int i = 0; i < PartyMemberContainer.MaxPartyMembers; i++)
+            foreach(var member in Members)
             {
-                var member = PartyMemberContainer[i];
-                if (member == null)
-                    continue;
-
                 packet.Write(member.PlayerData.Id);
                 packet.Write(0); // bRemove
             }
