@@ -82,7 +82,7 @@ namespace Rhisis.World.Game.Structures
             var worldConfiguration = DependencyContainer.Instance.Resolve<WorldConfiguration>();
 
             Id = id;
-            Name = worldConfiguration.PartyConfiguration.PartyStandardName;
+            Name = string.Empty;
             Level = 1;
             Experience = 0;
             Points = 0;
