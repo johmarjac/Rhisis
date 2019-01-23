@@ -128,7 +128,9 @@ namespace Rhisis.World.Systems.Party
 
         private void OnPartyMemberRequestCancel(IPlayerEntity player, PartyMemberRequestCancelEventArgs e)
         {
-            var leader = (IPlayerEntity)player.Context.Entities.FirstOrDefault(x => (x is IPlayerEntity ldr) && ldr.PlayerData.Id == e.LeaderId);
+            var worldServer = DependencyContainer.Instance.Resolve<IWorldServer>();
+
+            var leader = worldServer.GetPlayerEntityByCharacterId(e.LeaderId);
             if (leader == null)
                 return;
 
@@ -137,10 +139,12 @@ namespace Rhisis.World.Systems.Party
 
         private void OnPartyMemberRequest(IPlayerEntity player, PartyMemberRequestEventArgs e)
         {
+            var worldServer = DependencyContainer.Instance.Resolve<IWorldServer>();
+
             if (player.PlayerData.Id != e.PlayerId)
                 return;
 
-            var member = (IPlayerEntity)player.Context.Entities.FirstOrDefault(x => (x is IPlayerEntity ldr) && ldr.PlayerData.Id == e.MemberId);
+            var member = worldServer.GetPlayerEntityByCharacterId(e.MemberId);
             if (member == null)
             {
                 WorldPacketFactory.SendAddPartyRequestCancel(player, e.MemberId, PartyRequestCancelMode.OtherServer);
