@@ -63,6 +63,7 @@ namespace Rhisis.World.Game.Entities
             this.PlayerData = new PlayerDataComponent();
             this.Trade = new TradeComponent();
             this.Party = new PartyComponent();
+            this.Taskbar = new TaskbarComponent();
             this.Follow = new FollowComponent();
             this.Interaction = new InteractionComponent();
             this.Battle = new BattleComponent();
